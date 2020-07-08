@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Codenation.Challenge.Models;
+using Codenation.Challenge.Services;
 
 namespace Source
 {
@@ -27,6 +28,8 @@ namespace Source
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<CodenationContext>();
+
+            services.AddSingleton<IAccelerationService, AccelerationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

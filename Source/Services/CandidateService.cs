@@ -5,8 +5,11 @@ namespace Codenation.Challenge.Services
 {
     public class CandidateService : ICandidateService
     {
+        private CodenationContext _context;
+
         public CandidateService(CodenationContext context)
         {
+            _context = context;
         }
 
         public IList<Candidate> FindByAccelerationId(int accelerationId)

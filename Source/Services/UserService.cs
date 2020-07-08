@@ -1,32 +1,53 @@
-using System.Collections.Generic;
 using Codenation.Challenge.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Codenation.Challenge.Services
 {
     public class UserService : IUserService
     {
+        private CodenationContext _context;
+
         public UserService(CodenationContext context)
         {
+            _context = context;
         }
 
         public IList<User> FindByAccelerationName(string name)
         {
-            throw new System.NotImplementedException();
+            return _context.Candidates
+                .Where(c => c.Acceleration.Name == name)
+                .Select(c => c.User)
+                .ToList();
         }
 
         public IList<User> FindByCompanyId(int companyId)
         {
-            throw new System.NotImplementedException();
+            return _context.Candidates
+                .Where(c => c.CompanyId == companyId)
+                .Select(c => c.User)
+                .ToList();
         }
 
         public User FindById(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.Users.Find(id);
         }
 
         public User Save(User user)
         {
-            throw new System.NotImplementedException();
+            if (user.Id == default)
+            {
+                _context.Users.Add(user);
+            }
+            else
+            {
+                _context.Users.Update(user);
+            }
+
+            _context.SaveChanges();
+
+            return user;
         }
     }
 }
