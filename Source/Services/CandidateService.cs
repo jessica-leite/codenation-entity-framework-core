@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Codenation.Challenge.Models;
 
 namespace Codenation.Challenge.Services
@@ -14,22 +15,34 @@ namespace Codenation.Challenge.Services
 
         public IList<Candidate> FindByAccelerationId(int accelerationId)
         {
-            throw new System.NotImplementedException();
+            return _context.Candidates
+               .Where(c => c.AccelerationId == accelerationId)
+               .ToList();
+        
         }
 
         public IList<Candidate> FindByCompanyId(int companyId)
         {
-            throw new System.NotImplementedException();
+            return _context.Candidates
+                .Where(c => c.CompanyId == companyId)
+                .ToList();
         }
 
         public Candidate FindById(int userId, int accelerationId, int companyId)
         {
-            throw new System.NotImplementedException();
+            return _context.Candidates
+                .FirstOrDefault(
+                    c => c.UserId == userId &&
+                    c.AccelerationId == accelerationId &&
+                    c.CompanyId == companyId);
         }
 
         public Candidate Save(Candidate candidate)
         {
-            throw new System.NotImplementedException();
+            _context.Candidates.Add(candidate);
+            _context.SaveChanges();
+
+            return candidate;
         }
     }
 }
