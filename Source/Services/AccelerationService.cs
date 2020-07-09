@@ -1,4 +1,5 @@
 using Codenation.Challenge.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,8 +17,10 @@ namespace Codenation.Challenge.Services
         public IList<Acceleration> FindByCompanyId(int companyId)
         {
             return _context.Candidates
+                .Include(c => c.Acceleration)
                 .Where(c => c.CompanyId == companyId)
                 .Select(c => c.Acceleration)
+                .Distinct()
                 .ToList();
         }
 

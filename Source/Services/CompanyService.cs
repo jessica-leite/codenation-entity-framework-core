@@ -34,6 +34,7 @@ namespace Codenation.Challenge.Services
                 .Include(c => c.Company)
                 .Where(c => c.UserId == userId)
                 .Select(c => c.Company)
+                .Distinct()
                 .ToList();
         }
 

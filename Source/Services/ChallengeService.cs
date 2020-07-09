@@ -17,10 +17,11 @@ namespace Codenation.Challenge.Services
         public IList<Models.Challenge> FindByAccelerationIdAndUserId(int accelerationId, int userId)
         {
             return _context.Candidates
-                .Where(c => c.AccelerationId == accelerationId && c.UserId == userId)
                 .Include(c => c.Acceleration)
                     .ThenInclude(a => a.Challenge)
+                .Where(c => c.AccelerationId == accelerationId && c.UserId == userId)
                 .Select(c => c.Acceleration.Challenge)
+                .Distinct()
                 .ToList();
         }
 
