@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
-using Xunit;
 using Codenation.Challenge.Models;
 using Codenation.Challenge.Services;
+using System;
+using Xunit;
 
 namespace Codenation.Challenge
 {

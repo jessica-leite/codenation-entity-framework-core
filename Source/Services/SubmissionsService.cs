@@ -31,7 +31,15 @@ namespace Codenation.Challenge.Services
 
         public Submission Save(Submission submission)
         {
-            _context.Add(submission);
+            if (_context.Submissions.Any(s => s.UserId == submission.UserId && s.ChallengeId == submission.ChallengeId))
+            {
+                _context.Update(submission);
+            }
+            else
+            {
+                _context.Add(submission);
+            }
+
             _context.SaveChanges();
 
             return submission;

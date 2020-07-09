@@ -18,7 +18,7 @@ namespace Codenation.Challenge.Services
             return _context.Candidates
                .Where(c => c.AccelerationId == accelerationId)
                .ToList();
-        
+
         }
 
         public IList<Candidate> FindByCompanyId(int companyId)
@@ -39,7 +39,17 @@ namespace Codenation.Challenge.Services
 
         public Candidate Save(Candidate candidate)
         {
-            _context.Candidates.Add(candidate);
+            if (_context.Candidates.Any(c => c.AccelerationId == candidate.AccelerationId &&
+            c.CompanyId == candidate.CompanyId &&
+            c.UserId == candidate.UserId))
+            {
+                _context.Candidates.Update(candidate);
+            }
+            else
+            {
+                _context.Candidates.Add(candidate);
+            }
+
             _context.SaveChanges();
 
             return candidate;
