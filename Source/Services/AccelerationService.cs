@@ -1,6 +1,6 @@
+using Codenation.Challenge.Models;
 using System.Collections.Generic;
 using System.Linq;
-using Codenation.Challenge.Models;
 
 namespace Codenation.Challenge.Services
 {
@@ -28,7 +28,15 @@ namespace Codenation.Challenge.Services
 
         public Acceleration Save(Acceleration acceleration)
         {
-            _context.Accelerations.Add(acceleration);
+            if (acceleration.Id == default)
+            {
+                _context.Accelerations.Add(acceleration);
+            }
+            else
+            {
+                _context.Accelerations.Update(acceleration);
+            }
+
             _context.SaveChanges();
 
             return acceleration;
